@@ -39,7 +39,6 @@
 // а ⇒ д (ддббяя)
 // я ⇒ а (ддббаа)
 
-
 // Пример 3
 // Входные данные: абаб ааах
 // Выходные данные: 0
@@ -49,20 +48,18 @@
 const equalsStr = (str1, str2) => {
   return str1 == str2
 }
-
+//Функция создания структуры данных для входящей строке
 const createObj = (arr) => {
   const result = []
-  const uniqArr = new Set(arr)
-  
-  for (letter of uniqArr){
+  for (let i = 0; i < arr.length; i++){
     const letObj = {
       letter: '',
       idxs: []
     }
-    letObj.letter = letter
+    letObj.letter = arr[i]
     for (let k = 0; k < arr.length; k++){
-      if (letter === arr[k]){
-        //добавляем индекс символа
+      if (arr[i] === arr[k]){
+        //собираем индексы символа в массив
         letObj.idxs.push(k)
       }
     }
@@ -70,11 +67,29 @@ const createObj = (arr) => {
   }
   return result
 }
-
-const analysData = (arrDataInLine, arrDataOutLine) => {
-  for (let i = 0; i < arrDataOutLine; i++) {
-   
+//анализируем данные на возможность замены
+const analysData = (arrDataInLine, outLine, arrVar) => {
+  //console.log('arrDataInLine: ', arrDataInLine)
+  //console.log('outLine: ', outLine)
+  //console.log('arrVar: ', arrVar)
+  for (key of arrVar){
+    // console.log(key)
+    //массив для сравнения  элементов в выходной строке
+    const currentArr = []
+    //если символ по данному индексу повторяется всего лишь раз, мы можем его заменить
+    if (arrDataInLine[key].idxs.length === 1){
+      continue
+    }
+    for (idx of arrDataInLine[key].idxs){
+      currentArr.push(outLine[idx])
+    }
+    
+    const unqCurrentArr = new Set(currentArr)
+    if (unqCurrentArr.size > 1) {
+      return 0
+    }
   }
+  return 1
 }
 
 //Сравнить длину строк
@@ -89,25 +104,26 @@ const arrIndicesVariousLetter = (line, outLine) => {
       result.push(i)
     }
   }
-  console.log("arrIndicesVariousLetter ", "result =", result)
+  //console.log("arrIndicesVariousLetter ", "result =", result)
   return result
 }
 
+//Main function
 const result = (realLine) => {
   const arrRealLine = realLine.split(" ").map(str => str.split(''))
   const inLine = arrRealLine[0]
   const outLine = arrRealLine[1]
-  if (lengthCheck) {
+  if (lengthCheck(inLine, outLine)) {
     return 0
   }
   const arrDataInLine = createObj(inLine)
-  const arrDataOutLine = createObj(outLine)
-  analysData(arrDataInLine, arrDataOutLine)
+  return analysData(arrDataInLine, outLine, arrIndicesVariousLetter(inLine, outLine))
 }
 
-
-const realLine = 'вабб аааа'
-result(realLine)
+// input Data 
+const realLine = 'дгггггд аггггга'
+// Call main function
+console.log(result(realLine))
 
 
 
@@ -121,6 +137,7 @@ result(realLine)
 
 
 
-//Должны знать, совпадают ли индексы повторяющихся символов в входящих и выходящи данных и совпадают ли сами символы
+//Должны знать, совпадают ли индексы повторяющихся символов 
+//во входящих и выходящих данных и совпадают ли сами символы
 
 // 
