@@ -45,8 +45,9 @@
 // Преобразовать нельзя, так как 'б' не сможет оказаться одновременно 'а' и 'х'.
 
 
-const equalsStr = (str1, str2) => {
-  return str1 == str2
+//Проверка длины строк
+const lengthCheck = (str1, str2) => {
+  return str1.length !== str2.length
 }
 //Функция создания структуры данных для входящей строке
 const createObj = (arr) => {
@@ -67,61 +68,60 @@ const createObj = (arr) => {
   }
   return result
 }
-//анализируем данные на возможность замены
+//анализируем данные на возможность замены.
 const analysData = (arrDataInLine, outLine, arrVar) => {
-  //console.log('arrDataInLine: ', arrDataInLine)
-  //console.log('outLine: ', outLine)
-  //console.log('arrVar: ', arrVar)
   for (key of arrVar){
-    // console.log(key)
-    //массив для сравнения  элементов в выходной строке
+    //массив для сравнения элементов в выходной строке
     const currentArr = []
-    //если символ по данному индексу повторяется всего лишь раз, мы можем его заменить
+    //если символ по данному индексу повторяется всего лишь раз, мы можем его заменить по условию 3*
     if (arrDataInLine[key].idxs.length === 1){
       continue
     }
     for (idx of arrDataInLine[key].idxs){
       currentArr.push(outLine[idx])
     }
-    
+    //если массив заменяемых элементов в входной строке содержит более 1ого уникального символа, замена по условию 3* не возможна.
     const unqCurrentArr = new Set(currentArr)
     if (unqCurrentArr.size > 1) {
-      return 0
+      return false
     }
   }
-  return 1
+  return true
 }
 
-//Сравнить длину строк
-const lengthCheck = (str1, str2) => {
-  return str1.length !== str2.length
-}
-//Должны знать индексы символов, которые различаются
-const arrIndicesVariousLetter = (line, outLine) => {
+
+//Получаем массив индексов символов, которые различаются во входящих данных относительно результата
+const arrIdxsVariousLetters = (line, outLine) => {
   const result = []
   for (let i = 0; i < line.length; i++){
     if (line[i] !== outLine[i]){
       result.push(i)
     }
   }
-  //console.log("arrIndicesVariousLetter ", "result =", result)
   return result
 }
 
 //Main function
 const result = (realLine) => {
+  //Пеобразуем входные данные в массивы
   const arrRealLine = realLine.split(" ").map(str => str.split(''))
   const inLine = arrRealLine[0]
   const outLine = arrRealLine[1]
+  //Проверяем длинну входного и выходного массива
   if (lengthCheck(inLine, outLine)) {
     return 0
   }
+  //Создание структуры данных для анализа
+  //Получаем массив объектов вида {letter: 'а', idxs:[]}. Массив idxs содержит индексы символа в строке.
   const arrDataInLine = createObj(inLine)
-  return analysData(arrDataInLine, outLine, arrIndicesVariousLetter(inLine, outLine))
+  if (analysData(arrDataInLine, outLine, arrIdxsVariousLetters(inLine, outLine))){
+    return 1
+  }
+  return 0
 }
 
 // input Data 
-const realLine = 'дгггггд аггггга'
+const realLine = 'ббааппрр ррааппбб'
 // Call main function
 console.log(result(realLine))
 

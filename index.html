@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="content">
+    <div>
+      <h1 class="task-title">Задача 1. Преобразования слов</h1>
+    </div>
+    <div class="centering-wrapper"><div class="bloko-gap bloko-gap_top bloko-gap_bottom"><div class="bloko-column bloko-column_m-12 bloko-column_l-16"><div class="content-wrapper"><div class="content-wrapper-header"><h2>Условие задачи</h2></div><div class="bloko-gap bloko-gap_top"><table class="task-condition__restriction"><tbody><tr><td>Ограничение времени, с</td><td>1</td></tr><tr><td>Ограничение памяти, МБ</td><td>64</td></tr><tr><td>Общее число попыток отправки</td><td>15</td></tr></tbody></table><br><div><p>На вход подается 2 строки. Нужно определить, можно ли превратить первую строку во вторую, заменяя одни буквы на другие, с учетом следующих правил:</p>
+      <ul>
+      <li>- участвуют только буквы русского алфавита а-я;</li>
+      <li>- все буквы в нижнем регистре;</li>
+      <li>- за один шаг можно преобразовать все вхождения одной буквы в другую.</li>
+      </ul>
+      <br>
+      <h3>Входные данные</h3>
+      <p>Входная информация поступает из стандартного ввода в виде одной строки. В этой строке содержатся две подстроки, разделенные пробелом. Ваше решение должно учитывать вариант, когда на вход поданы строки разной длины. Некорректные данные на вход не поступают, дополнительные проверки не требуются.</p>
+      <br>
+      <h3>Выходные данные</h3>
+      <p>В качестве ответа в стандартный вывод программа должна выводить 1 (если превратить можно) или 0 (если превратить нельзя).</p>
+      <br>
+      <h3>Пример 1</h3>
+      <p>Входные данные: <code>привет прикол</code>
+      Выходные данные: <code>1</code>
+      Преобразования (выводить не нужно):
+      в ⇒ к (прикет)
+      е ⇒ о (прикот)
+      т ⇒ л (прикол)</p>
+      <br>
+      <h3>Пример 2</h3>
+      <p>Входные данные: <code>ааббдд ддббаа</code>
+      Выходные данные: <code>1</code>
+      Преобразования (выводить не нужно):
+      д ⇒ я (ааббяя)
+      а ⇒ д (ддббяя)
+      я ⇒ а (ддббаа)</p>
+      <br>
+      <h3>Пример 3</h3>
+      <p>Входные данные: <code>абаб ааах</code>
+      Выходные данные: <code>0</code>
+      Преобразовать нельзя, так как 'б' не сможет оказаться одновременно 'а' и 'х'.</p>
+      <br>
+      <h3>Примечания по оформлению решения</h3>
+      <p>При отправке решений на Java необходимо назвать исполняемый класс <code>Main</code>. В решении не нужно указывать пакет.</p>
+      <p>Для работы со стандартным потоком ввода в JS используйте <code>require('readline')</code>, а для работы со стандартным потоком вывода - <code>console.log(String(data))</code>.</p>
+      <br>
+      <p>Пример ввода-вывода на JS:</p>
+      <pre><code>const readline = require('readline');
+      const rl = readline.createInterface(process.stdin, process.stdout);
+      rl.on('line', (line) =&gt; {
+          // Введенная строка в переменной line, тут можно написать решение
+          console.log(String(result));
+          rl.close();
+          return;
+      }).on('close', () =&gt; process.exit(0));
+      </code></pre>
+  </div>
+</div>
+  
+</body>
+</html>
