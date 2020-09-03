@@ -101,6 +101,15 @@ const arrIdxsVariousLetters = (line, outLine) => {
   return result
 }
 
+const checkAllLetter = (arr) => {
+  const arr_ru = [ 'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я','ё' ]
+  const arrSet = new Set(arr)
+  const sortArr = Array.from(arrSet).sort()
+  if(sortArr.every(function(elem,i) {return elem === arr_ru[i]})){
+    return true
+  }
+}
+
 //Main function
 const result = (realLine) => {
   //Пеобразуем входные данные в массивы
@@ -108,9 +117,10 @@ const result = (realLine) => {
   const inLine = arrRealLine[0]
   const outLine = arrRealLine[1]
   //Проверяем длинну входного и выходного массива
-  if (lengthCheck(inLine, outLine)) {
+  if (lengthCheck(inLine, outLine) || checkAllLetter(inLine) && checkAllLetter(outLine)) {
     return 0
   }
+  checkAllLetter(inLine)
   //Создание структуры данных для анализа
   //Получаем массив объектов вида {letter: 'а', idxs:[]}. Массив idxs содержит индексы символа в строке.
   const arrDataInLine = createObj(inLine)
@@ -121,7 +131,7 @@ const result = (realLine) => {
 }
 
 // input Data 
-const realLine = 'ббааппрр ррааппбб'
+const realLine = 'бавгдежзийклмнопрстуфхцчшщьыъэюяё абвгдеёжзийклмнопрстуфхцчшщьыъэюя'
 // Call main function
 console.log(result(realLine))
 
